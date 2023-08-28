@@ -1,14 +1,17 @@
 const { DataTypes, sequelize } = require('../dbconnect');
 
-const Canciones = sequelize.define('canciones', {
+const canciones = sequelize.define('canciones', {
     id_canciones: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    nombrePlaylist: {
+    nombreCancion: {
         type: DataTypes.STRING(45),
         allowNull: false
+    },
+    idPlayList: {
+          type: DataTypes.INTEGER,
     },
    
     estado: {
@@ -37,9 +40,11 @@ const Canciones = sequelize.define('canciones', {
     tableName: 'canciones'
 })
 
-Canciones.sync({ force: true })
+canciones.sync({ force: false })
 .then(() => {
     console.log('la tabla Canciones se creo correctamente ');
+}).catch(err => {
+    console.error('Error al crear tabla:', err);
 });
 
-module.exports = Canciones;
+module.exports = canciones;

@@ -1,52 +1,26 @@
-const Usuario = require('../db/models/usuario.db');
-const ctrlUsuario = {};
+const Usuarios = require('../db/models/usuario.db');
+const ctrlUsuarios = {};
 
 // Obtener todas las reservas
-ctrlUsuario.obtenerUsuarios = async (req, res) => {
+ctrlUsuarios.obtenerlosUsuarios = async (req, res) => {
     try {
-        const usuarios = await Usuario.findAll({
+        const Users = await Usuarios.findAll({
             where: {
                 estado: true
             }
         });
 
-        return res.json(usuarios);
+        return res.json(Users);
     } catch (error) {
-        console.log('se produjo un error al obtener los usuarios', error);
+        console.log('Error al obtener los usuarios', error);
         return res.status(500).json({
-            message: 'se produjo un error al obtener los usuarios'
+            message: 'Error al obtener a los usuarios'
         })
     }
 }
 
 // Crear una reserva
-ctrlUsuario.crearUsuario = async (req, res) => {
-    const {
-        nombre,
-        apellido,
-        email,
-        contraseña
-    } = req.body;
-
-    try {
-        const nuevoUsuario = new Usuario({
-            nombre,
-            apellido,
-            email,
-            contraseña
-        });
-
-        await nuevoUsuario.save();
-
-        return res.status(201).json({ message: '!!Usuario creado!!'})
-    } catch (error) {
-        console.log('Error al crear al usuario', error);
-        return res.status(500).json({ message: 'error al crear al usuario'})
-    }
-}
-
-
-ctrlUsuario.crearUsuario = async (req, res) => {
+ctrlUsuarios.crearUsuario = async (req, res) => {
     const {
         nombre,
         apellido,
@@ -56,7 +30,7 @@ ctrlUsuario.crearUsuario = async (req, res) => {
     } = req.body;
 
     try {
-        const usuarioNuevo = new Usuario({
+        const nuevoUsuario = new Usuarios({
             nombre,
             apellido,
             email,
@@ -64,13 +38,13 @@ ctrlUsuario.crearUsuario = async (req, res) => {
             contraseña
         });
 
-        await usuarioNuevo.save();
+        await nuevoUsuario.save();
 
-        return res.status(201).json({ message: '¡¡Registro exitoso!!'})
+        return res.status(201).json({ message: '!!EL usuario fue creado exitosamente!!'})
     } catch (error) {
         console.log('Error al crear al usuario', error);
-        return res.status(500).json({ message: 'Hubo un error al crear al usuario'})
+        return res.status(500).json({ message: 'Hubo un error inesperado al crear al usuario'})
     }
 }
 
-module.exports = ctrlUsuario;
+module.exports = ctrlUsuarios;

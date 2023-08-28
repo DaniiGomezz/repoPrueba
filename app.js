@@ -5,7 +5,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const Usuarios = require('./src/db/models/usuario.db');
 const playList = require('./src/db/models/playlist.db');
-const Canciones = require('./src/db/models/canciones.db');
+const canciones = require('./src/db/models/canciones.db');
 
 const { conexionBaseDatos } = require('./src/db/dbconnect');
 

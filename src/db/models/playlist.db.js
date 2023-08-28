@@ -1,4 +1,5 @@
 const { DataTypes, sequelize } = require('../dbconnect');
+const canciones = require('./canciones.db');
 
 const playList = sequelize.define('playlist', {
     idPlayList: {
@@ -9,6 +10,10 @@ const playList = sequelize.define('playlist', {
     nombrePlaylist: {
         type: DataTypes.STRING(45),
         allowNull: false
+    },
+
+    id_usuario:{
+        type: DataTypes.INTEGER,
     },
    
     estado: {
@@ -37,9 +42,17 @@ const playList = sequelize.define('playlist', {
     tableName: 'playlists'
 })
 
-playList.sync({ force: true })
+
+
+playList.sync({ force: false })
 .then(() => {
     console.log('la tabla playlist se creo correctamente ');
+}).catch(err => {
+    console.error('Error al crear tabla:', err);
 });
+
+
+
+playList.hasMany(canciones, { as: 'playListCanciones', foreignKey: 'idPlayList' });
 
 module.exports = playList;
